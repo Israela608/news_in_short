@@ -69,4 +69,21 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     // Hilt Navigation Compose Integration
     implementation(libs.androidx.hilt.navigation.compose)
+    // Retrofit
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.gson)  // Include if you plan to use Gson with Retrofit
+    implementation(libs.retrofit.converter.moshi) // Include if you plan to use Moshi with Retrofit
+    // OkHttp (logging interceptor)
+    implementation(libs.okhttp.logging.interceptor)
+    // implementation(libs.okhttp.core) // Retrofit includes OkHttp, so this is optional unless you need a specific version or use OkHttp directly
+    // Gson (if used standalone or with Retrofit)
+    implementation(libs.gson)
+    // Moshi (if used standalone or with Retrofit)
+    implementation(libs.moshi.core)
+    implementation(libs.moshi.kotlin) // For Kotlin support (reflection or codegen)
+    ksp(libs.moshi.kotlin.codegen)
+    // Coroutines
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.android)
+
 }
