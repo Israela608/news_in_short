@@ -2,7 +2,7 @@ package com.example.newsinshort.data.entity
 
 data class NewsResponse (
   val status : String,
-    val totalResult: Int,
+    val totalResults: Int,
     val articles : List<Article>
 )
 

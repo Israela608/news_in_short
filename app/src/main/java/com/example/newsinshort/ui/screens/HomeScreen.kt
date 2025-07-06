@@ -34,7 +34,7 @@ fun HomeScreen(
             is ResourceState.Success -> {
 
                 val response = (newsRes as ResourceState.Success).data
-                Log.d(TAG, "Inside_success ${response.status} = ${response.totalResult}")
+                Log.d(TAG, "Inside_success ${response.status} = ${response.totalResults}")
             }
 
             is ResourceState.Error -> {
