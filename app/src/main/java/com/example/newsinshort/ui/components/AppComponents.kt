@@ -1,8 +1,10 @@
 package com.example.newsinshort.ui.components
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -20,9 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,8 +39,9 @@ import com.example.newsinshort.ui.theme.Purple40
 @Composable
 fun Loader(){
     Column (
-        modifier = Modifier.fillMaxSize()
-        .padding(8.dp),
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ){
@@ -77,7 +82,7 @@ fun NormalTextComponent(textValue: String){
 }
 
 @Composable
-fun HeadingTextComponent(textValue: String){
+fun HeadingTextComponent(textValue: String, centerAligned: Boolean = false){
     Text(
         text = textValue,
         modifier = Modifier
@@ -87,7 +92,8 @@ fun HeadingTextComponent(textValue: String){
         style = TextStyle(
             fontSize = 24.sp,
             fontWeight = FontWeight.Medium,
-        )
+        ),
+        textAlign = if(centerAligned) TextAlign.Center else TextAlign.Start
     )
 }
 
@@ -120,6 +126,11 @@ fun NewsRowComponent(page: Int, article: Article){
 
         NormalTextComponent(textValue = article.description ?: "")
 
+        Spacer(modifier = Modifier.weight(1f))
+
+        AuthorDetailsComponent(article.author, article.source?.name)
+
+
     }
 }
 
@@ -136,4 +147,46 @@ fun NewsRowComponentPreview(){
         null,
         null,
     )
+}
+
+@Composable
+fun AuthorDetailsComponent(authorName: String?, sourceName: String?){
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(start = 10.dp, end = 10.dp, bottom = 24.dp)) {
+
+        authorName?.also{
+            Text(text = it)
+        }
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        sourceName?.also {
+            Text(text = it)
+        }
+    }
+}
+
+@Composable
+fun EmptyStateComponent(){
+    Column (
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center,
+    ){
+        Image(
+            painter = painterResource(id = R.drawable.ic_no_data),
+            contentDescription = null
+        )
+
+        HeadingTextComponent(textValue = stringResource(R.string.no_news_as_of_now_please_check_in_some_time), centerAligned = true)
+    }
+}
+
+@Preview
+@Composable
+fun EmptyStateComponentPreview(){
+    EmptyStateComponent()
 }

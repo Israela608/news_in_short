@@ -1,11 +1,11 @@
 package com.example.newsinshort.ui.screens
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,12 +14,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.newsinshort.ResourceState
+import com.example.newsinshort.ui.components.EmptyStateComponent
 import com.example.newsinshort.ui.components.Loader
 import com.example.newsinshort.ui.components.NewsRowComponent
 import com.example.newsinshort.ui.viewmodel.NewsViewmodel
 
 const val TAG = "HomeScreen"
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen(
     newsViewmodel: NewsViewmodel = hiltViewModel()
@@ -54,6 +56,8 @@ fun HomeScreen(
 
                 if(response.articles.isNotEmpty()){
                     NewsRowComponent(page, response.articles[page])
+                } else{
+                    EmptyStateComponent()
                 }
             }
 
