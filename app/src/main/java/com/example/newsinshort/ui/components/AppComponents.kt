@@ -18,6 +18,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.newsinshort.data.entity.Article
 import com.example.newsinshort.data.entity.NewsResponse
 import com.example.newsinshort.ui.theme.Purple40
 
@@ -61,4 +62,9 @@ fun NormalTextComponent(textValue: String){
             fontWeight = FontWeight.Normal,
         )
     )
+}
+
+@Composable
+fun NewsRowComponent(page: Int, article: Article){
+    NormalTextComponent(textValue = "$page \n\n ${article.title}")
 }
