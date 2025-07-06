@@ -3,6 +3,7 @@ package com.example.newsinshort.ui.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,6 +21,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,19 +64,35 @@ fun NormalTextComponent(textValue: String){
     Text(
         text = textValue,
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .wrapContentHeight()
             .padding(8.dp),
         style = TextStyle(
             fontSize = 18.sp,
             fontWeight = FontWeight.Normal,
+            fontFamily = FontFamily.Monospace,
+            color = Purple40,
+        )
+    )
+}
+
+@Composable
+fun HeadingTextComponent(textValue: String){
+    Text(
+        text = textValue,
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(8.dp),
+        style = TextStyle(
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Medium,
         )
     )
 }
 
 @Composable
 fun NewsRowComponent(page: Int, article: Article){
-  //  NormalTextComponent(textValue = "$page \n\n ${article.title}")
 
     Column (
         modifier = Modifier
@@ -93,20 +111,29 @@ fun NewsRowComponent(page: Int, article: Article){
             placeholder = painterResource(id = R.drawable.ic_placeholder_image),
             error = painterResource(id = R.drawable.ic_placeholder_image)
         )
+
+        Spacer(modifier = Modifier.height(20.dp))
+
+        HeadingTextComponent(textValue = article.title ?: "")
+
+        Spacer(modifier = Modifier.height(10.dp))
+
+        NormalTextComponent(textValue = article.description ?: "")
+
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun NewsRowComponentPreview(){
-   val article = Article(
-       author = "Mr X",
-       title = "Hello Dummy news article",
-       null,
-     null,
-null,
-     null,
-     null,
-     null,
-   )
+    val article = Article(
+        author = "Mr X",
+        title = "Hello Dummy news article",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+    )
 }
